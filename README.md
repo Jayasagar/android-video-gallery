@@ -1,7 +1,23 @@
 ###### Solution 
-* Store video and thumbnail in the internal storage so that it is specific to application
+* Store video in the internal storage so that it is specific to application
 * Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user 
 * On click play video
+
+###### Expected/Not Clear
+* On click on video plays continuously
+* 
+
+###### Pending
+* Card view margin top -- DONE
+* Order By creation date - ORM - DONE
+* Play video on click - DONE
+** Stop continuous playing -- Not Clear to fix - TODO
+* Infinite Scroll -- DONE
+* Date conversion -- DONE
+* User to fill the video name
+* Loggers
+* Notify adapter after Recorded Video -- DONE
+* Play icon on card --
 
 ###### Features
 * Video recording
@@ -30,11 +46,16 @@
 
 ###### Issues
 *  Android: Sugar ORM No Such Table Exception: it's related to Instant Run. Disable instant run and it works
-
+* Date query lt: https://github.com/satyan/sugar/issues/376
 ###### Remember
 * min 4.1
 * 
 
-###### Ref
-* SQLLite : https://github.com/satyan/sugar
+###### Improve 
+* Look more into Dynamic permissions
 * 
+
+###### Ref
+* Endless scroll: https://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView
+* SQLLite : https://github.com/satyan/sugar
+* Camera dont have internal storage permissions: http://stackoverflow.com/questions/13402187/android-action-image-capture-with-extra-output-in-internal-memory

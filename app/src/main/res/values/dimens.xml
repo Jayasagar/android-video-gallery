@@ -5,7 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Video Card -->
-    <dimen name="album_cover_height">260dp</dimen>
+    <dimen name="card_margin_top">50dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="card_album_radius">10dp</dimen>
     <dimen name="card_view_elevation">20dp</dimen>

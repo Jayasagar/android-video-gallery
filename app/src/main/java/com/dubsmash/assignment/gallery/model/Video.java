@@ -7,8 +7,7 @@ import java.util.Date;
 public class Video extends SugarRecord {
     public String id;
     public String name;
-    public String thumbnailUri;
-    public String videoUri;
+    public String uri;
     public int duration;
     public Date creationTime;
 }

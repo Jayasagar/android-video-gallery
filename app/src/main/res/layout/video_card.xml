@@ -13,13 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ImageView
+        <com.dubsmash.assignment.gallery.ProportionalImageView
                 android:id="@+id/thumbnail_image"
+                android:src="@drawable/ic_launcher"
                 android:adjustViewBounds="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:clickable="true"
         />
 
@@ -59,7 +58,7 @@
                         android:shadowDx="0"
                         android:shadowDy="-1"
                         android:shadowRadius="4"
-                        android:text="10. September 2016"/>
+                        android:text="10. December 2016"/>
 
                 <TextView
                         android:id="@+id/duration"

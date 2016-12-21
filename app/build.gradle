@@ -34,5 +34,8 @@ dependencies {
     // ORM for SQLLite
     compile 'com.github.satyan:sugar:1.5'
 
+    // Image loading and caching
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     testCompile 'junit:junit:4.12'
 }

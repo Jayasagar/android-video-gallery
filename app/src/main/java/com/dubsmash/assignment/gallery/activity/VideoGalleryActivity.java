@@ -1,44 +1,38 @@
 package com.dubsmash.assignment.gallery.activity;
 
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
 import android.media.MediaMetadataRetriever;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import com.dubsmash.assignment.gallery.MediaUtils;
 import com.dubsmash.assignment.gallery.R;
+import com.dubsmash.assignment.gallery.activity.adapter.EndlessRecyclerViewScrollListener;
 import com.dubsmash.assignment.gallery.activity.adapter.VideoCardAdapter;
 import com.dubsmash.assignment.gallery.model.Video;
-import com.orm.query.Select;
+import com.dubsmash.assignment.gallery.repositiry.VideoRepo;
 
-import java.io.File;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class VideoGalleryActivity extends AppCompatActivity {
 
-    static final int REQUEST_VIDEO_CAPTURE = 1000;
+    private static final int REQUEST_VIDEO_CAPTURE = 1000;
+    private static final int REQUEST_PERMISSIONS = 1001;
     private RecyclerView mRecyclerView;
     private Uri videoStoragePathUri;
-    private File file;
+    private VideoCardAdapter videoCardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,105 +41,83 @@ public class VideoGalleryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.record_video);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // TODO: Start the camera to record video
-                dispatchTakeVideoIntent();
+            public void onClick(View view) {recordVideo();
             }
         });
-
-        // Load all the Videos
-        // TODO: Pagination support
-        List<Video> videos = Select.from(Video.class).list();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        VideoCardAdapter videoCardAdapter = new VideoCardAdapter(getApplicationContext());
+        // Register endless scrollbar
+        registerScroll(linearLayoutManager);
+
+        // Set Adapter
+        videoCardAdapter = new VideoCardAdapter(getApplicationContext());
+        // Load first page of videos
+        List<Video> videos = VideoRepo.getNextVideos();
         videoCardAdapter.updateVideos(videos);
-
         mRecyclerView.setAdapter(videoCardAdapter);
-        mRecyclerView.setLayoutManager(llm);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_video_gallery, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // request for permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    private void dispatchTakeVideoIntent() {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-
-        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath() + File.separator + new Date
-                ().getTime() + ".mp4");
-
-        videoStoragePathUri = Uri.fromFile(file);
-        //videoStoragePathUri = getInternalFileUri();
-
-        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoStoragePathUri);
-
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }
+    private void registerScroll(LinearLayoutManager linearLayoutManager) {
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                List<Video> nextVideos = VideoRepo.getNextVideos();
+                videoCardAdapter.updateVideos(nextVideos);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        mRecyclerView.addOnScrollListener(scrollListener);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            //Uri videoUri = intent.getData();
-            // Duration
+
+            // Extract video information
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-            //use one of overloaded setDataSource() functions to set your data source
-            retriever.setDataSource(file.getAbsolutePath());
+            retriever.setDataSource(videoStoragePathUri.getPath());
             String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-            long timeInMillisec = Long.parseLong(time );
-            String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
             String creationDate = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE);
 
-            //InputStream is = getContentResolver().openInputStream(videoUri);
-            //Bitmap bitmap = BitmapFactory.decodeStream(is);
-            //is.close();
-
             Video video = new Video();
-            video.name = title;
-            video.duration = (int)timeInMillisec/1000;
-            // TODO : convert to date
-            //video.creationTime = creationDate;
-            video.videoUri = videoStoragePathUri.getPath();
-            //video.thumbnailUri = thumb.
+            // TODO: Ask user to name the video
+            video.name = "Random Video";
+            video.duration = (int)TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(time));
+            video.creationTime = MediaUtils.formatMediaDate(creationDate);
+
+            // Copy Video to internal storage
+            String internalStorageVideoPath = MediaUtils.saveToInternalStorage(this, videoStoragePathUri);
+
+            video.uri = internalStorageVideoPath;
 
             Video.save(video);
+            videoCardAdapter.addVideo(video);
+
         }
     }
 
-    public Uri getInternalFileUri() {
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile = new File(getApplicationContext().getFilesDir() + File.separator +
-                "VID_"+ timeStamp + ".mp4");
+    private void recordVideo() {
+        videoStoragePathUri = MediaUtils.getOutputMediaFileUri();
 
-        return Uri.fromFile(mediaFile);
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoStoragePathUri);
+
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
     }
 }

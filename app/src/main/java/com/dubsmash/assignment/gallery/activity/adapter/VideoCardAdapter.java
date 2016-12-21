@@ -1,8 +1,8 @@
 package com.dubsmash.assignment.gallery.activity.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+import android.content.Intent;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dubsmash.assignment.gallery.MediaUtils;
 import com.dubsmash.assignment.gallery.R;
 import com.dubsmash.assignment.gallery.model.Video;
 
@@ -18,11 +22,11 @@ import java.util.List;
 
 public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.VideoCardViewHolder> {
 
-    private Context mContext;
+    private Context context;
     private List<Video> videos = new ArrayList<>();
 
-    public VideoCardAdapter(Context mContext) {
-        this.mContext = mContext;
+    public VideoCardAdapter(Context context) {
+        this.context = context;
     }
 
     public void updateVideos(List<Video> videos) {
@@ -34,11 +38,15 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
         }
 
         // If adapter posts already exist and check for possible update
-        // new Videos could come if user try to Swipe refresh
         if (videos != null && !videos.isEmpty() && this.videos.size() != videos.size()) {
-            this.videos = videos;
+            this.videos.addAll(videos);
             notifyDataSetChanged();
         }
+    }
+
+    public void addVideo(Video video) {
+        this.videos.add(0, video);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -48,8 +56,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
 
     @Override
     public VideoCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.video_card, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_card, parent, false);
 
         return new VideoCardViewHolder(itemView);
     }
@@ -57,23 +64,29 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
     @Override
     public void onBindViewHolder(VideoCardViewHolder holder, int position) {
         final Video video = videos.get(position);
-        holder.creationDate.setText("12");
-        holder.title.setText("Test");
-        holder.duration.setText("12");
+        holder.creationDate.setText(MediaUtils.dateToString(video.creationTime));
+        holder.title.setText(video.name);
+        holder.duration.setText(String.valueOf(video.duration) + " Sec");
 
-        // Glide ?
-        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.videoUri, MediaStore.Video.Thumbnails.MINI_KIND);
-        holder.thumbnail_image.setImageBitmap(thumb);
+        // Glide to create Thumbnail and cache image
+        Glide.with(context)
+                .load(video.uri)
+                .asBitmap()
+                .thumbnail(0.1f)
+                .placeholder(R.drawable.ic_launcher)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(holder.thumbnail_image);
 
         holder.thumbnail_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start the video
-
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(video.uri));
+                intent.setDataAndType(Uri.parse(video.uri), "video/mp4");
+                intent.putExtra (MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
-
-        // loading video cover using Glide library ????
     }
 
     public class VideoCardViewHolder extends RecyclerView.ViewHolder {
