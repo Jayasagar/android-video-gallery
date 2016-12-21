@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.dubsmash.assignment.gallery.DateUtils;
 import com.dubsmash.assignment.gallery.MediaUtils;
 import com.dubsmash.assignment.gallery.R;
 import com.dubsmash.assignment.gallery.activity.adapter.EndlessRecyclerViewScrollListener;
@@ -97,7 +98,7 @@ public class VideoGalleryActivity extends AppCompatActivity {
             // TODO: Ask user to name the video
             video.name = "Random Video";
             video.duration = (int)TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(time));
-            video.creationTime = MediaUtils.formatMediaDate(creationDate);
+            video.creationTime = DateUtils.formatMediaDate(creationDate);
 
             // Copy Video to internal storage
             String internalStorageVideoPath = MediaUtils.saveToInternalStorage(this, videoStoragePathUri);

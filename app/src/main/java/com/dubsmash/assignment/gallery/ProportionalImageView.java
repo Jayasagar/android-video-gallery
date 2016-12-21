@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * Scale the image view proportionally :)
+ */
 public class ProportionalImageView extends ImageView {
  
     public ProportionalImageView(Context context) {

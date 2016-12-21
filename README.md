@@ -1,13 +1,9 @@
-###### Solution 
+###### Notes on solution 
 * Store video in the internal storage so that it is specific to application
 * Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user 
-* On click play video
-
-###### Expected/Not Clear
-* On click on video plays continuously
-* 
 
 ###### Pending
+* Test across the devices start from 4.1
 * Card view margin top -- DONE
 * Order By creation date - ORM - DONE
 * Play video on click - DONE
@@ -44,18 +40,16 @@
 ** Video Name
 * https://developer.android.com/training/camera/videobasics.html
 
+###### Expected/Not Clear
+* On click on video plays continuously
+
 ###### Issues
 *  Android: Sugar ORM No Such Table Exception: it's related to Instant Run. Disable instant run and it works
 * Date query lt: https://github.com/satyan/sugar/issues/376
-###### Remember
-* min 4.1
-* 
-
-###### Improve 
-* Look more into Dynamic permissions
-* 
 
 ###### Ref
 * Endless scroll: https://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView
 * SQLLite : https://github.com/satyan/sugar
 * Camera dont have internal storage permissions: http://stackoverflow.com/questions/13402187/android-action-image-capture-with-extra-output-in-internal-memory
+* play internal video file: http://stackoverflow.com/questions/27165269/play-video-from-android-internal-storage
+* 

@@ -16,27 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.dubsmash.assignment.gallery.GalleryApp.FILE_SAVE_FORMATE;
+import static com.dubsmash.assignment.gallery.GalleryApp.TAG;
 
 public final class MediaUtils {
 
     private MediaUtils() {}
-
-    public static String dateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(GalleryApp.DATE_PATTERN);
-        return dateFormat.format(date);
-    }
-
-    public static Date formatMediaDate(String date) {
-        try {
-            Date inputDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.getDefault()).parse(date);
-            return inputDate;
-        } catch (Exception e){
-            Log.w(GalleryApp.TAG, "error parsing date: ", e);
-        }
-        return new Date();
-    }
 
     public static Uri getOutputMediaFileUri() {
         return Uri.fromFile(getOutputMediaFile());
@@ -70,7 +55,7 @@ public final class MediaUtils {
                 out.write(buf, 0, len);
             }
         } catch (IOException e) {
-            Log.e(GalleryApp.TAG, "Problem while copying to internal storage");
+            Log.e(TAG, "Problem while copying to internal storage");
         } finally {
             try {
                 if (in != null) {
@@ -80,7 +65,7 @@ public final class MediaUtils {
                     in.close();
                 }
             } catch (IOException e) {
-                Log.e(GalleryApp.TAG, "Problem while copying to internal storage");
+                Log.e(TAG, "Problem while copying to internal storage");
             }
         }
         sourceExternalImageFile.delete();

@@ -5,5 +5,4 @@ public interface GalleryApp {
     String DATE_PATTERN = "MMMM dd, yyyy";
     String TAG = "Galley App";
     String PAGE_LIMIT = "10";
-
 }

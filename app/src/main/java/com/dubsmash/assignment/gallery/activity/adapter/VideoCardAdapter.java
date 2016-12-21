@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dubsmash.assignment.gallery.MediaUtils;
+import com.dubsmash.assignment.gallery.DateUtils;
 import com.dubsmash.assignment.gallery.R;
 import com.dubsmash.assignment.gallery.model.Video;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
     @Override
     public void onBindViewHolder(VideoCardViewHolder holder, int position) {
         final Video video = videos.get(position);
-        holder.creationDate.setText(MediaUtils.dateToString(video.creationTime));
+        holder.creationDate.setText(DateUtils.dateToString(video.creationTime));
         holder.title.setText(video.name);
         holder.duration.setText(String.valueOf(video.duration) + " Sec");
 
@@ -80,9 +81,11 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
         holder.thumbnail_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(video.uri));
-                intent.setDataAndType(Uri.parse(video.uri), "video/mp4");
-                intent.putExtra (MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
+                Uri uri = Uri.parse("content://" + context.getPackageName()+ "/" + video.uri);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setDataAndType(uri, "video/*");
+                //intent.putExtra (MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
