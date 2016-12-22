@@ -1,22 +1,14 @@
+##### Tested on
+* Real Device - Android 4.4, 
+* Real Devie - Android 6
+* Genymotion - Cutom phone 7.0.0 and on 4.4 -> But somehow it has issue with camera :( -> Could not continue
 
-Tested on Android 4.4, Android 6 and 
-
-###### Notes on solution 
+###### Quick notes
 * Store video in the internal storage so that it is specific to application
-* Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user 
-
-###### Pending
-* Test across the devices start from 4.1
-* Card view margin top -- DONE
-* Order By creation date - ORM - DONE
-* Play video on click - DONE
-** Stop continuous playing -- Not Clear to fix - TODO
-* Infinite Scroll -- DONE
-* Date conversion -- DONE
-* User to fill the video name
-* Loggers
-* Notify adapter after Recorded Video -- DONE
-* Play icon on card --
+* Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user
+* Used Glide for Thumbnail and caching
+* Used Sugar ORM for SQLLite
+* Not able to manage with Tests :( 
 
 ###### Features
 * Video recording
@@ -43,8 +35,6 @@ Tested on Android 4.4, Android 6 and
 ** Video Name
 * https://developer.android.com/training/camera/videobasics.html
 
-###### Expected/Not Clear
-* On click on video plays continuously
 
 ###### Issues
 *  Android: Sugar ORM No Such Table Exception: it's related to Instant Run. Disable instant run and it works
