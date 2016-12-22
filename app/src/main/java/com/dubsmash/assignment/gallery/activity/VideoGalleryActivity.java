@@ -5,25 +5,29 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 
-import com.dubsmash.assignment.gallery.DateUtils;
-import com.dubsmash.assignment.gallery.MediaUtils;
+import com.dubsmash.assignment.gallery.utils.DateUtils;
+import com.dubsmash.assignment.gallery.utils.MediaUtils;
 import com.dubsmash.assignment.gallery.R;
 import com.dubsmash.assignment.gallery.activity.adapter.EndlessRecyclerViewScrollListener;
 import com.dubsmash.assignment.gallery.activity.adapter.VideoCardAdapter;
 import com.dubsmash.assignment.gallery.model.Video;
 import com.dubsmash.assignment.gallery.repositiry.VideoRepo;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -107,18 +111,30 @@ public class VideoGalleryActivity extends AppCompatActivity {
 
             Video.save(video);
             videoCardAdapter.addVideo(video);
-
         }
     }
 
     private void recordVideo() {
+        // file:///storage/emulated/0/Movies/camera/Video_20161221_140831.mp4
         videoStoragePathUri = MediaUtils.getOutputMediaFileUri();
 
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoStoragePathUri);
-
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            //
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                MimeTypeMap mime = MimeTypeMap.getSingleton();
+                String type = mime.getMimeTypeFromExtension("mp4");
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                // content://com.dubsmash.assignment.gallery.provider/external_storage_root/Movies/camera/Video_20161221_140831.mp4
+                Uri contentUri = FileProvider.getUriForFile(this, this.getPackageName() + ".provider", new File(videoStoragePathUri.getPath()));
+                //intent.setDataAndType(contentUri, type);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            } else {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, videoStoragePathUri);
+            }
+            startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
         }
+
     }
 }

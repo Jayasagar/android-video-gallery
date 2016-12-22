@@ -1,6 +1,8 @@
-package com.dubsmash.assignment.gallery;
+package com.dubsmash.assignment.gallery.utils;
 
 import android.util.Log;
+
+import com.dubsmash.assignment.gallery.GalleryApp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

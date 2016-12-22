@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery;
+package com.dubsmash.assignment.gallery.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

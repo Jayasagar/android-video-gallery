@@ -28,6 +28,16 @@
         </activity>
         <provider android:name=".VideoShareProvider" android:authorities="com.dubsmash.assignment.gallery" android:exported="true" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- Sugar ORM Config -->
         <meta-data android:name="DATABASE" android:value="video_gallery_app" />
         <meta-data android:name="VERSION" android:value="2" />

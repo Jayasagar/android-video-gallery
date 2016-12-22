@@ -1,3 +1,6 @@
+
+Tested on Android 4.4, Android 6 and 
+
 ###### Notes on solution 
 * Store video in the internal storage so that it is specific to application
 * Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user 
@@ -52,4 +55,4 @@
 * SQLLite : https://github.com/satyan/sugar
 * Camera dont have internal storage permissions: http://stackoverflow.com/questions/13402187/android-action-image-capture-with-extra-output-in-internal-memory
 * play internal video file: http://stackoverflow.com/questions/27165269/play-video-from-android-internal-storage
-* 
+* Android N file uri issue: https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en

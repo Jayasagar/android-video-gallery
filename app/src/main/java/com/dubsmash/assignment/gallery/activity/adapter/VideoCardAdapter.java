@@ -3,7 +3,6 @@ package com.dubsmash.assignment.gallery.activity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dubsmash.assignment.gallery.DateUtils;
+import com.dubsmash.assignment.gallery.utils.DateUtils;
 import com.dubsmash.assignment.gallery.R;
 import com.dubsmash.assignment.gallery.model.Video;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +83,6 @@ public class VideoCardAdapter extends RecyclerView.Adapter<VideoCardAdapter.Vide
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setDataAndType(uri, "video/*");
-                //intent.putExtra (MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
