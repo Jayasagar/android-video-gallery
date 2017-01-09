@@ -1,13 +1,13 @@
-package com.dubsmash.assignment.gallery.repositiry;
+package com.jay.android.video.gallery.gallery.repositiry;
 
-import com.dubsmash.assignment.gallery.model.Video;
+import com.jay.android.video.gallery.gallery.model.Video;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.Date;
 import java.util.List;
 
-import static com.dubsmash.assignment.gallery.GalleryApp.PAGE_LIMIT;
+import static com.jay.android.video.gallery.gallery.GalleryApp.PAGE_LIMIT;
 
 public final class VideoRepo {
     private VideoRepo() {}

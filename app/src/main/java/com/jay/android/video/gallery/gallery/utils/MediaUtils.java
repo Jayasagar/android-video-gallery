@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.utils;
+package com.jay.android.video.gallery.gallery.utils;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,13 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-import static com.dubsmash.assignment.gallery.GalleryApp.FILE_SAVE_FORMATE;
-import static com.dubsmash.assignment.gallery.GalleryApp.TAG;
+import static com.jay.android.video.gallery.gallery.GalleryApp.FILE_SAVE_FORMATE;
+import static com.jay.android.video.gallery.gallery.GalleryApp.TAG;
 
 public final class MediaUtils {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.dubsmash.assignment.gallery.activity.VideoGalleryActivity">
+    tools:context="com.jay.android.video.gallery.gallery.activity.VideoGalleryActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.activity.adapter;
+package com.jay.android.video.gallery.gallery.activity.adapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

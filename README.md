@@ -3,12 +3,11 @@
 * Real Devie - Android 6
 * Genymotion - Cutom phone 7.0.0 and on 4.4 -> But somehow it has issue with camera :( -> Could not continue
 
-###### Quick notes
+###### Quick notes solution 
 * Store video in the internal storage so that it is specific to application
 * Store video information(Name, duration, URIs) in the SQLLite so that we can easily query and present to user
 * Used Glide for Thumbnail and caching
 * Used Sugar ORM for SQLLite
-* Not able to manage with Tests :( 
 
 ###### Features
 * Video recording
@@ -21,20 +20,6 @@
 ** App-specific files/ Internal app-specific directories
 *** /data/data/your.package.name/
 *** Sub directory: databases – for SQLite databases
-                     
-** Choose storage ?
-** DB?
-** Shared Pref?
-** Internal storage?
-** 
-* Play/Display videos
-** play -- Start in video player app -- Spike ??
-** Thumbnail of the video - Spike ??
-** Duration
-** Creation time
-** Video Name
-* https://developer.android.com/training/camera/videobasics.html
-
 
 ###### Issues
 *  Android: Sugar ORM No Such Table Exception: it's related to Instant Run. Disable instant run and it works

@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery;
+package com.jay.android.video.gallery.gallery;
 
 public interface GalleryApp {
     String FILE_SAVE_FORMATE = "yyyyMMdd_HHmmss";

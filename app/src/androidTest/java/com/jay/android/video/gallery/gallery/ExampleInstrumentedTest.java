@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery;
+package com.jay.android.video.gallery.gallery;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.dubsmash.assignment.gallery", appContext.getPackageName());
+        assertEquals("com.jay.android.video.gallery.gallery", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.utils;
+package com.jay.android.video.gallery.gallery.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

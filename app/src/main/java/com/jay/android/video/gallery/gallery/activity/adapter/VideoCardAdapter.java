@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.activity.adapter;
+package com.jay.android.video.gallery.gallery.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.dubsmash.assignment.gallery.utils.DateUtils;
-import com.dubsmash.assignment.gallery.R;
-import com.dubsmash.assignment.gallery.model.Video;
+import com.jay.android.video.gallery.gallery.utils.DateUtils;
+import com.jay.android.video.gallery.gallery.R;
+import com.jay.android.video.gallery.gallery.model.Video;
 
 import java.util.ArrayList;
 import java.util.List;

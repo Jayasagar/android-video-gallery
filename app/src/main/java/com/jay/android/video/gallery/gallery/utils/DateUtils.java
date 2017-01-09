@@ -1,15 +1,15 @@
-package com.dubsmash.assignment.gallery.utils;
+package com.jay.android.video.gallery.gallery.utils;
 
 import android.util.Log;
 
-import com.dubsmash.assignment.gallery.GalleryApp;
+import com.jay.android.video.gallery.gallery.GalleryApp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.dubsmash.assignment.gallery.GalleryApp.TAG;
+import static com.jay.android.video.gallery.gallery.GalleryApp.TAG;
 
 public class DateUtils {
 

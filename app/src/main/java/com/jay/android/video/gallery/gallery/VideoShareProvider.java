@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery;
+package com.jay.android.video.gallery.gallery;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery;
+package com.jay.android.video.gallery.gallery;
 
 import org.junit.Test;
 

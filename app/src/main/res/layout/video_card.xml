@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.dubsmash.assignment.gallery.utils.ProportionalImageView
+        <com.jay.android.video.gallery.gallery.utils.ProportionalImageView
                 android:id="@+id/thumbnail_image"
                 android:src="@drawable/ic_launcher"
                 android:adjustViewBounds="true"

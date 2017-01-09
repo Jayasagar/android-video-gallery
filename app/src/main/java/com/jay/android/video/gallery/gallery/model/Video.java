@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.model;
+package com.jay.android.video.gallery.gallery.model;
 
 import com.orm.SugarRecord;
 

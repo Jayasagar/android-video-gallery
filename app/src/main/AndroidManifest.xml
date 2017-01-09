@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dubsmash.assignment.gallery">
+    package="com.jay.android.video.gallery.gallery">
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-feature android:name="android.permission.CAPTURE" />
@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider android:name=".VideoShareProvider" android:authorities="com.dubsmash.assignment.gallery" android:exported="true" />
+        <provider android:name=".VideoShareProvider" android:authorities="com.jay.android.video.gallery.gallery" android:exported="true" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -42,7 +42,7 @@
         <meta-data android:name="DATABASE" android:value="video_gallery_app" />
         <meta-data android:name="VERSION" android:value="2" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.dubsmash.assignment.gallery" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.jay.android.video.gallery.gallery" />
     </application>
 
 </manifest>

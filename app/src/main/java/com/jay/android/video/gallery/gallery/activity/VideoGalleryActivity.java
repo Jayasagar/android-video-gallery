@@ -1,4 +1,4 @@
-package com.dubsmash.assignment.gallery.activity;
+package com.jay.android.video.gallery.gallery.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,13 +19,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
-import com.dubsmash.assignment.gallery.utils.DateUtils;
-import com.dubsmash.assignment.gallery.utils.MediaUtils;
-import com.dubsmash.assignment.gallery.R;
-import com.dubsmash.assignment.gallery.activity.adapter.EndlessRecyclerViewScrollListener;
-import com.dubsmash.assignment.gallery.activity.adapter.VideoCardAdapter;
-import com.dubsmash.assignment.gallery.model.Video;
-import com.dubsmash.assignment.gallery.repositiry.VideoRepo;
+import com.jay.android.video.gallery.gallery.utils.DateUtils;
+import com.jay.android.video.gallery.gallery.utils.MediaUtils;
+import com.jay.android.video.gallery.gallery.R;
+import com.jay.android.video.gallery.gallery.activity.adapter.EndlessRecyclerViewScrollListener;
+import com.jay.android.video.gallery.gallery.activity.adapter.VideoCardAdapter;
+import com.jay.android.video.gallery.gallery.model.Video;
+import com.jay.android.video.gallery.gallery.repositiry.VideoRepo;
 
 import java.io.File;
 import java.util.List;
@@ -126,7 +126,7 @@ public class VideoGalleryActivity extends AppCompatActivity {
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String type = mime.getMimeTypeFromExtension("mp4");
                 intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                // content://com.dubsmash.assignment.gallery.provider/external_storage_root/Movies/camera/Video_20161221_140831.mp4
+                // content://com.jay.android.video.gallery.gallery.provider/external_storage_root/Movies/camera/Video_20161221_140831.mp4
                 Uri contentUri = FileProvider.getUriForFile(this, this.getPackageName() + ".provider", new File(videoStoragePathUri.getPath()));
                 //intent.setDataAndType(contentUri, type);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
